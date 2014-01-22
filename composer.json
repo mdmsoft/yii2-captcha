@@ -18,7 +18,6 @@
                 "yiisoft/yii2": "*"
         },
         "autoload": {
-                "psr-0": { "mdm\\captcha\\": "" }
-        },
-        "target-dir": "mdm/captcha"
+                "psr-4": { "mdm\\captcha\\": "" }
+        }
 }
