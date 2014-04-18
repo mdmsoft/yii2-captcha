@@ -1,16 +1,16 @@
 {
-        "name": "mdm-yii2/mdm-captcha",
+        "name": "mdmsoft/yii2-captcha",
         "description": "Captcha with math equation",
         "keywords": ["yii", "captcha"],
         "type": "yii2-extension",
         "license": "BSD-3-Clause",
         "support": {
-                "issues": "https://github.com/mdm-yii2/mdm-captcha/issues",
-                "source": "https://github.com/mdm-yii2/mdm-captcha"
+                "issues": "https://github.com/mdmsoft/yii2-captcha/issues",
+                "source": "https://github.com/mdmsoft/yii2-captcha"
         },
         "authors": [
                 {
-                        "name": "Misbahul Munir",
+                        "name": "Misbahul D Munir",
                         "email": "misbahuldmunir@gmail.com"
                 }
         ],
