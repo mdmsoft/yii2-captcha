@@ -4,6 +4,7 @@ namespace mdm\captcha;
 
 use \Yii;
 use yii\helpers\Url;
+use yii\web\Response;
 
 /**
  * Description of CaptchaAction 2520
@@ -24,7 +25,6 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
 
     public function init()
     {
-        parent::init();
         if ($this->formulaClass === null) {
             $this->formulaClass = 'mdm\captcha\formula\Level' . $this->level;
         }
@@ -37,8 +37,7 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
         if (Yii::$app->request->getQueryParam(self::REFRESH_GET_VAR) !== null) {
             // AJAX request for regenerating code
             $code = $this->getVerifyCode(true);
-            /** @var \yii\web\Controller $controller */
-            $controller = $this->controller;
+
             return json_encode([
                 'hash1' => $this->generateValidationHash($code),
                 'hash2' => $this->generateValidationHash(strtolower($code)),
@@ -48,8 +47,8 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
             ]);
         } else {
             $this->setHttpHeaders();
-            $code = $this->getFormulaCode();
-            return $this->renderImage($this->_formula->expression($code, true));
+            Yii::$app->response->format = Response::FORMAT_RAW;
+            return $this->renderImage($this->_formula->expression($this->getFormulaCode(), true));
         }
     }
 

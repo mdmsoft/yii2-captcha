@@ -28,19 +28,19 @@ class Level1 extends BaseFormula
 
             case 3:
                 $a = $code[1] + $code[2];
-                $b = 23;
+                $b = $code[3] + 11;
                 $c = $code[3] + $code[4];
                 break;
 
             case 4:
                 $a = $code[1] * $code[2];
-                $b = 23;
+                $b = $code[3] + 11;
                 $c = $code[3] + $code[4];
                 break;
 
             default:
                 $a = 2 * ($code[1] + $code[2]);
-                $b = 23;
+                $b = $code[3] + 11;
                 $c = $code[3] + $code[4];
                 break;
         }

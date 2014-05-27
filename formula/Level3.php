@@ -4,11 +4,10 @@ namespace mdm\captcha\formula;
 
 /**
  * Description of Level5
- * Simple expression `(a + b - c)/(d - e)`
  *
  * @author MDMunir
  */
-class Level5 extends BaseFormula
+class Level3 extends BaseFormula
 {
 
     public function expression($code, $forFormula)
