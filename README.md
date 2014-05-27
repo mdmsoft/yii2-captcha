@@ -1,5 +1,5 @@
-mdm-captcha
-===========
+Captcha With Math Equation
+==========================
 
 Installation
 ------------
