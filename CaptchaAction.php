@@ -14,24 +14,25 @@ use yii\web\Response;
 class CaptchaAction extends \yii\captcha\CaptchaAction
 {
     public $level = 1;
-    public $formulaClass;
     public $size = 14;
-    
+
     /**
      *
-     * @var formula\BaseFormula 
+     * @var Formula 
      */
     private $_formula;
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
-        if ($this->formulaClass === null) {
-            $this->formulaClass = 'mdm\captcha\formula\Level' . $this->level;
-        }
-        
-        $this->_formula = new $this->formulaClass;
+        $this->_formula = new Formula($this->level);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function run()
     {
         if (Yii::$app->request->getQueryParam(self::REFRESH_GET_VAR) !== null) {
@@ -48,7 +49,7 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
         } else {
             $this->setHttpHeaders();
             Yii::$app->response->format = Response::FORMAT_RAW;
-            return $this->renderImage($this->_formula->expression($this->getFormulaCode(), true));
+            return $this->renderImage($this->_formula->getExpresion($this->getFormulaCode()));
         }
     }
 
@@ -64,7 +65,7 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
         $name = $this->getSessionKey();
         if ($session[$name] === null || $regenerate) {
             $code = $session[$name . 'code'] = $this->generateVerifyCode();
-            $session[$name] = $this->_formula->expression($code, false);
+            $session[$name] = $this->_formula->getValue($code);
             $session[$name . 'count'] = 1;
         }
         return $session[$name];
@@ -77,7 +78,7 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
         $name = $this->getSessionKey();
         if ($session[$name] === null) {
             $code = $session[$name . 'code'] = $this->generateVerifyCode();
-            $session[$name] = $this->_formula->expression($code, false);
+            $session[$name] = $this->_formula->getValue($code);
             $session[$name . 'count'] = 1;
         }
         return $session[$name . 'code'];
@@ -91,8 +92,9 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
         mt_srand(time());
         $code = [];
         for ($i = 0; $i <= 5; $i++) {
-            $code[] = mt_rand(0, 10);
+            $code[$i] = mt_rand(0, 10);
         }
+        $code[6]=  mt_rand(0, 100);
         return $code;
     }
 

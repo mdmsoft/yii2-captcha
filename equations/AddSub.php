@@ -1,38 +1,39 @@
 <?php
 
-namespace mdm\captcha\formula;
+namespace mdm\captcha\equations;
 
 /**
- * Description of Level1
- * Simple expression `a + b - c`
+ * AddSub
+ * Simple math equation like `$a + $b - $c`
  *
- * @author MDMunir
+ * @author Misbahul D Munir <misbahuldmunir@gmail.com>
+ * @since 1.0
  */
-class Level1 extends BaseFormula
+class AddSub implements EquationInterface
 {
 
-    public function expression($code, $forFormula)
+    protected static function format($code)
     {
         switch ($code[5] % 5) {
-            case 1:
+            case 0:
                 $a = $code[1] + $code[2];
                 $b = $code[3] + 11;
                 $c = $code[4];
                 break;
 
-            case 2:
+            case 1:
                 $a = $code[1] * $code[2];
                 $b = $code[3] + 11;
                 $c = $code[4];
                 break;
 
-            case 3:
+            case 2:
                 $a = $code[1] + $code[2];
                 $b = $code[3] + 11;
                 $c = $code[3] + $code[4];
                 break;
 
-            case 4:
+            case 3:
                 $a = $code[1] * $code[2];
                 $b = $code[3] + 11;
                 $c = $code[3] + $code[4];
@@ -44,10 +45,18 @@ class Level1 extends BaseFormula
                 $c = $code[3] + $code[4];
                 break;
         }
-        if ($forFormula) {
-            return "{$a}+{$b}-{$c}";
-        } else {
-            return $a + $b - $c;
-        }
+        return [$a, $b, $c];
+    }
+
+    public static function getExpresion($code)
+    {
+        list($a, $b, $c) = static::format($code);
+        return "{$a}+{$b}-{$c}";
+    }
+
+    public static function getValue($code)
+    {
+        list($a, $b, $c) = static::format($code);
+        return $a + $b - $c;
     }
 }
