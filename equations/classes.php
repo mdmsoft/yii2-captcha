@@ -14,8 +14,8 @@ return [
     ],
     // level 3
     '3'=>[
-        'mdm\captcha\equations\LimitZero',
-        'mdm\captcha\equations\LimitInvinity',
+        'mdm\captcha\equations\LimitFnt',
+        'mdm\captcha\equations\LimitIfnt',
         'mdm\captcha\equations\Integrate',
     ],
 ];
