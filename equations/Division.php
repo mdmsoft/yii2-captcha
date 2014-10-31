@@ -11,7 +11,7 @@ namespace mdm\captcha\equations;
 class Division implements EquationInterface
 {
 
-    public static function format($code)
+    protected static function format($code)
     {
         switch ($code[5] % 5) {
             case 0:

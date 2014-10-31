@@ -8,7 +8,7 @@ namespace mdm\captcha\equations;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class LimitFnt implements EquationInterface
+class LimitIfnt1 implements EquationInterface
 {
 
     protected static function format($code)
@@ -35,26 +35,20 @@ class LimitFnt implements EquationInterface
                 $b = $code[2] - $code[3] + $code[4] + 11;
                 break;
         }
-        return [$a, $b, $code[0] == '0' ? 1 : $code[0]];
+        return [2 * $a + $b, $b, $code[0] - $code[2]+11, $code[1] - $code[3]+11];
     }
 
     public static function getExpresion($code)
     {
-        list($a, $b, $c) = static::format($code);
-        $sign = $c > $b ? ' + ' : ($c < $b ? ' - ' : '');
-        if ($sign != '') {
-            $bc1 = abs($c - $b);
-            $bc1 = $bc1 == 1 ? 'x' : $bc1 . 'x';
-        } else {
-            $bc1 = '';
-        }
-        $bc2 = $b * $c;
-        return "lim{x right {$a}}{{x^2{$sign}{$bc1} - {$bc2}}/{x - {$b}}}";
+        list($a, $b, $c, $d) = static::format($code);
+        $sg1 = $c > 10? '+' : '-';
+        $sg2 = $d > 10? '+' : '-';
+        return "lim{x right infty}{sqrt{x^2 + {$a}x {$sg1} {$c}}-sqrt{x^2 + {$b}x {$sg2} {$d}}}";
     }
 
     public static function getValue($code)
     {
-        list($a,, $c) = static::format($code);
-        return $a + $c;
+        list($a, $b,, ) = static::format($code);
+        return ($a - $b) / 2;
     }
 }

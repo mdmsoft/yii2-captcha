@@ -8,10 +8,10 @@ namespace mdm\captcha\equations;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class Integrate implements EquationInterface
+class LimitIfnt2 implements EquationInterface
 {
 
-    public static function format($code)
+    protected static function format($code)
     {
         switch ($code[5] % 5) {
             case 0:
@@ -35,19 +35,24 @@ class Integrate implements EquationInterface
                 $b = $code[2] - $code[3] + $code[4] + 11;
                 break;
         }
-        return [3 * $a + $b, $b, $code[0] - $code[2]];
+        return [$a, $b, $code[0] - $code[2] + 11, $code[1] - $code[3] + 11];
     }
 
     public static function getExpresion($code)
     {
-        list($a, $b, $c) = static::format($code);
-        $c = $c == 0 ? '' : ($c < 0 ? ' - ' . abs($c) : ' + ' . $c);
-        return "int{{$b}}{{$a}}{(x^2 - 2x{$c}) dx}";
+        list($a, $b, $c, $d) = static::format($code);
+        $sg1 = $c > 10 ? '+' : '-';
+        $sg2 = $d > 10 ? '+' : '-';
+        $a1 = $b * $b;
+        if ($a1 == 0) {
+            $a1 = 4;
+        }
+        return "lim{x right infty}{sqrt{{$a1}x^2 {$sg2} {$a}x {$sg1} {$c}}}/{sqrt{x^2 {$sg1} {$b}x {$sg2} {$d}}}";
     }
 
     public static function getValue($code)
     {
-        list($a, $b, $c) = static::format($code);
-        return ($a - $b) * ($a * $a + $a * $b + $b * $b) / 3 - ($a * $a - $b * $b) + $c * ($a - $b);
+        list(, $b,, ) = static::format($code);
+        return $b == 0 ? 2 : $b;
     }
 }

@@ -13,7 +13,7 @@ namespace mdm\captcha\equations;
 class Polynom2 implements EquationInterface
 {
 
-    public static function format($code)
+    protected static function format($code)
     {
         switch ($code[5] % 5) {
             case 0:
