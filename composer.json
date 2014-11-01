@@ -1,23 +1,30 @@
 {
-        "name": "mdmsoft/yii2-captcha",
-        "description": "Captcha with math equation",
-        "keywords": ["yii", "captcha"],
-        "type": "yii2-extension",
-        "license": "BSD-3-Clause",
-        "support": {
-                "issues": "https://github.com/mdmsoft/yii2-captcha/issues",
-                "source": "https://github.com/mdmsoft/yii2-captcha"
-        },
-        "authors": [
-                {
-                        "name": "Misbahul D Munir",
-                        "email": "misbahuldmunir@gmail.com"
-                }
-        ],
-        "require": {
-                "yiisoft/yii2": "*"
-        },
-        "autoload": {
-                "psr-4": { "mdm\\captcha\\": "" }
+    "name": "mdmsoft/yii2-captcha",
+    "description": "Captcha with math equation",
+    "keywords": ["yii", "captcha"],
+    "type": "yii2-extension",
+    "license": "BSD-3-Clause",
+    "support": {
+        "issues": "https://github.com/mdmsoft/yii2-captcha/issues",
+        "source": "https://github.com/mdmsoft/yii2-captcha"
+    },
+    "authors": [
+        {
+            "name": "Misbahul D Munir",
+            "email": "misbahuldmunir@gmail.com"
         }
+    ],
+    "require": {
+        "yiisoft/yii2": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "mdm\\captcha\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
 }
