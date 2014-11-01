@@ -9,13 +9,19 @@ The preferred way to install this extension is through [composer](http://getcomp
 Either run
 
 ```
-php composer.phar require --prefer-dist mdmsoft/yii2-captcha "*"
+php composer.phar require --prefer-dist mdmsoft/yii2-captcha "1.0.0"
 ```
 
 or add
 
 ```
-"mdmsoft/yii2-captcha": "*"
+"mdmsoft/yii2-captcha": "1.0.0"
+```
+
+for dev, using
+
+```
+"mdmsoft/yii2-captcha": "1.0.*@dev"
 ```
 
 to the require section of your `composer.json` file.
