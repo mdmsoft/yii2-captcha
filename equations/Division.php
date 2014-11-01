@@ -46,7 +46,7 @@ class Division implements EquationInterface
 
     public static function getValue($code)
     {
-        list($a, ) = static::format($code);
-        return $a;
+        list($a, $b) = static::format($code);
+        return $a / $b;
     }
 }

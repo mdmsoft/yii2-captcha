@@ -30,7 +30,7 @@ class Formula extends \yii\base\Object
     {
         $idx = $code[6] % count(static::$classes[$this->level]);
         $class = static::$classes[$this->level][$idx];
-        return $class::getValue($code);
+        return round($class::getValue($code));
     }
 }
 // avaliable classes
