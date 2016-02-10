@@ -9,42 +9,15 @@ namespace mdm\captcha\equations;
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class AddSub implements EquationInterface
+class AddSub
 {
 
     protected static function format($code)
     {
-        switch ($code[5] % 5) {
-            case 0:
-                $a = $code[1] + $code[2];
-                $b = $code[3] + 11;
-                $c = $code[4];
-                break;
+        $a = $code[1] + $code[2] + $code[3] * $code[5];
+        $b = $code[3] + $code[4] + 12;
+        $c = $code[2] + $code[4] + $code[5] + 1;
 
-            case 1:
-                $a = $code[1] * $code[2];
-                $b = $code[3] + 11;
-                $c = $code[4];
-                break;
-
-            case 2:
-                $a = $code[1] + $code[2];
-                $b = $code[3] + 11;
-                $c = $code[3] + $code[4];
-                break;
-
-            case 3:
-                $a = $code[1] * $code[2];
-                $b = $code[3] + 11;
-                $c = $code[3] + $code[4];
-                break;
-
-            default:
-                $a = 2 * ($code[1] + $code[2]);
-                $b = $code[3] + 11;
-                $c = $code[3] + $code[4];
-                break;
-        }
         return [$a, $b, $c];
     }
 

@@ -3,56 +3,43 @@
 namespace mdm\captcha\equations;
 
 /**
- * Multiply
+ * Limit Infinity 2
+ *
+ * Limit[x -> ~,V(ax^2 + cx + c) / V(x^2 + dx + d)]
+ *
+ * Va
  *
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class LimitIfnt2 implements EquationInterface
+class LimitIfnt2
 {
 
     protected static function format($code)
     {
-        switch ($code[5] % 5) {
-            case 0:
-                $a = $code[0] + $code[1];
-                $b = $code[2] + $code[3];
-                break;
-            case 1:
-                $a = $code[0] - $code[1] + 11;
-                $b = $code[2] + $code[3];
-                break;
-            case 2:
-                $a = $code[0] + $code[1];
-                $b = $code[2] - $code[3] + 11;
-                break;
-            case 3:
-                $a = $code[0] - $code[1] + 11;
-                $b = $code[2] - $code[3] + 11;
-                break;
-            default :
-                $a = $code[0] - $code[1] + 11;
-                $b = $code[2] - $code[3] + $code[4] + 11;
-                break;
-        }
-        return [$a, $b, $code[0] - $code[2] + 11, $code[1] - $code[3] + 11];
+        $a = $code[1] + $code[2] + 1;
+        $b = $code[2] + $code[3] + $code[4] + 1;
+        $c = $code[1] + $code[4] + $code[5] + 1;
+        $d = $code[1] + $code[5] + 5;
+
+        return [$a, $b, $c, $d];
     }
 
-    public static function getExpresion($code)
+    public static function getExpresion($code, $decimal = false)
     {
         list($a, $b, $c, $d) = static::format($code);
-        $sg1 = $c > 10 ? '+' : '-';
-        $sg2 = $d > 10 ? '+' : '-';
-        $a1 = $b * $b;
-        if ($a1 == 0) {
-            $a1 = 4;
+        if (!$decimal) {
+            $a = $a * $a;
         }
-        return "lim{x right infty}{sqrt{{$a1}x^2 {$sg2} {$a}x {$sg1} {$c}}}/{sqrt{x^2 {$sg1} {$b}x {$sg2} {$d}}}";
+        $midle1 = (($b > 15) ? '+' : '-') . " {$b}x + " . ($d - 4);
+        $midle2 = (($c > 15) ? '+' : '-') . " {$c}x - " . ($d + 4);
+
+        return "lim{x right infty}{sqrt{{$a}x^2 {$midle1}}}/{sqrt{x^2 {$midle2}}}";
     }
 
-    public static function getValue($code)
+    public static function getValue($code, $decimal = false)
     {
-        list(, $b,, ) = static::format($code);
-        return $b == 0 ? 2 : $b;
+        list($a,,, ) = static::format($code);
+        return $decimal ? sqrt($a) : $a;
     }
 }

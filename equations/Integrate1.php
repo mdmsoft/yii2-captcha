@@ -3,51 +3,41 @@
 namespace mdm\captcha\equations;
 
 /**
- * Multiply
+ * Integral 1
+ *
+ * Integrate[x = 0 to a, x^2 + 2bx + c]
+ *
+ * = x^3/3 + bx^2 + cx , x = 0 to a
+ *
+ * = [a^3]/3 + b*[a^2] + c*a
  *
  * @author Misbahul D Munir <misbahuldmunir@gmail.com>
  * @since 1.0
  */
-class Integrate1 implements EquationInterface
+class Integrate1
 {
 
     public static function format($code)
     {
-        switch ($code[5] % 5) {
-            case 0:
-                $a = $code[0] + $code[1];
-                $b = $code[2] + $code[3];
-                break;
-            case 1:
-                $a = $code[0] - $code[1] + 11;
-                $b = $code[2] + $code[3];
-                break;
-            case 2:
-                $a = $code[0] + $code[1];
-                $b = $code[2] - $code[3] + 11;
-                break;
-            case 3:
-                $a = $code[0] - $code[1] + 11;
-                $b = $code[2] - $code[3] + 11;
-                break;
-            default :
-                $a = $code[0] - $code[1] + 11;
-                $b = $code[2] - $code[3] + $code[4] + 11;
-                break;
-        }
-        return [3 * $a + $b, $b, $code[0] - $code[2]];
+        $a = $code[1] + 1;
+        $b = $code[2] + 1;
+        $c = $code[4] + 1;
+
+        return [$a, $b, $c];
     }
 
-    public static function getExpresion($code)
+    public static function getExpresion($code, $decimal = false)
     {
         list($a, $b, $c) = static::format($code);
-        $c = $c == 0 ? '' : ($c < 0 ? ' - ' . abs($c) : ' + ' . $c);
-        return "int{{$b}}{{$a}}{(x^2 - 2x{$c}) dx}";
+        $b *= 2;
+        $f = $decimal ? '' : '3';
+        return "int{0}{{$a}}{({$f}x^2 + {$b}x + {$c}) dx}";
     }
 
-    public static function getValue($code)
+    public static function getValue($code, $decimal = false)
     {
         list($a, $b, $c) = static::format($code);
-        return ($a - $b) * ($a * $a + $a * $b + $b * $b) / 3 - ($a * $a - $b * $b) + $c * ($a - $b);
+        $f = $decimal ? 1.0 / 3 : 1;
+        return ($a * $a * $a) * $f + $b * $a * $a + $c * $a;
     }
 }
