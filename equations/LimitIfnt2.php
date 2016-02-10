@@ -34,7 +34,7 @@ class LimitIfnt2
         $midle1 = (($b > 15) ? '+' : '-') . " {$b}x + " . ($d - 4);
         $midle2 = (($c > 15) ? '+' : '-') . " {$c}x - " . ($d + 4);
 
-        return "lim{x right infty}{sqrt{{$a}x^2 {$midle1}}}/{sqrt{x^2 {$midle2}}}";
+        return "lim{x right infty}{{sqrt{{$a}x^2 {$midle1}}}/{sqrt{x^2 {$midle2}}}}";
     }
 
     public static function getValue($code, $decimal = false)
