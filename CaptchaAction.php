@@ -5,6 +5,7 @@ namespace mdm\captcha;
 use Yii;
 use yii\web\Response;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
 
 /**
  * Description of CaptchaAction
@@ -22,25 +23,21 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
      * @var string 
      */
     public $imageFormat = self::JPEG_FORMAT;
-
     /**
      * Dificully level
      * @var int
      */
-    public $level = 1;
-
+    public $level;
     /**
      * Font size.
      * @var int
      */
     public $size = 14;
-
     /**
      * Allow decimal
      * @var boolean 
      */
     public $allowDecimal = false;
-
     /**
      * Registered equation class
      * @var array
@@ -52,7 +49,9 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
      */
     public function init()
     {
-        
+        if ($this->level === null) {
+            $this->level = ArrayHelper::getValue(\Yii::$app->params, 'mdm.captcha.level', 1);
+        }
     }
 
     /**
@@ -98,7 +97,7 @@ class CaptchaAction extends \yii\captcha\CaptchaAction
     /**
      * @inheritdoc
      */
-    public function validate($input)
+    public function validate($input, $caseSensitive)
     {
         $code = $this->getVerifyCode(false, true);
         $value = $this->getValue($code);
