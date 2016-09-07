@@ -768,7 +768,7 @@ class expression
 class expression_texte extends expression
 {
 
-    function expression_texte($exp)
+    function __construct($exp)
     {
         $this->texte = $exp;
     }
@@ -785,7 +785,7 @@ class expression_math extends expression
 {
     var $noeuds;
 
-    function expression_math($exp)
+    function __construct($exp)
     {
         $this->texte = "&$";
         $this->noeuds = $exp;
